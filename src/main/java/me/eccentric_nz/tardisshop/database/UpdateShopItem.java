@@ -92,4 +92,25 @@ public class UpdateShopItem {
             }
         }
     }
+
+    public void updateCost(double cost, int id) {
+        PreparedStatement ps = null;
+        final String query = "UPDATE items SET cost = ? WHERE item_id = ?";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setDouble(1, cost);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            plugin.debug("Update error for items table! " + e.getMessage());
+        } finally {
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException e) {
+                plugin.debug("Error closing items table! " + e.getMessage());
+            }
+        }
+    }
 }

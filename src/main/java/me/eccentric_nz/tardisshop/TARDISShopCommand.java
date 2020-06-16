@@ -4,19 +4,27 @@ import com.google.common.collect.ImmutableList;
 import me.eccentric_nz.TARDIS.commands.TARDISCompleter;
 import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.tardisshop.database.InsertShopItem;
+import me.eccentric_nz.tardisshop.database.ResultSetUpdateShop;
+import me.eccentric_nz.tardisshop.database.UpdateShopItem;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TARDISShopCommand extends TARDISCompleter implements CommandExecutor, TabCompleter {
 
     private final TARDISShop plugin;
-    private final ImmutableList<String> ROOT_SUBS = ImmutableList.of("add", "remove");
+    private final ImmutableList<String> ROOT_SUBS = ImmutableList.of("add", "remove", "update");
     private final List<String> ITEM_SUBS;
 
     public TARDISShopCommand(TARDISShop plugin) {
@@ -31,11 +39,12 @@ public class TARDISShopCommand extends TARDISCompleter implements CommandExecuto
             if (sender instanceof Player) {
                 player = (Player) sender;
             }
+            // must be a player
             if (player == null) {
                 sender.sendMessage(plugin.getPluginName() + "Command can only be used by a player!");
                 return true;
             }
-            // do stuff
+            // return if no arguments
             if (args.length < 1) {
                 player.sendMessage(plugin.getPluginName() + "Too few command arguments!");
                 return true;
@@ -44,7 +53,34 @@ public class TARDISShopCommand extends TARDISCompleter implements CommandExecuto
                 plugin.getRemovingItem().add(player.getUniqueId());
                 player.sendMessage(plugin.getPluginName() + "Click the " + plugin.getBlockMaterial().toString() + " block to remove the database record.");
                 return true;
+            } else if (args[0].equalsIgnoreCase("update")) {
+                // reload items.yml
+                File file = new File(plugin.getDataFolder(), "items.yml");
+                try {
+                    plugin.getItemsConfig().load(file);
+                } catch (InvalidConfigurationException | IOException e) {
+                    plugin.debug("Failed to reload items.yml" + e.getMessage());
+                }
+                // get shop items
+                ResultSetUpdateShop rs = new ResultSetUpdateShop(plugin);
+                if (rs.getAll()) {
+                    for (TARDISShopItem item : rs.getShopItems()) {
+                        String lookup = item.getItem().replace(" ", "_").toLowerCase();
+                        double cost = plugin.getItemsConfig().getDouble(lookup);
+                        if (cost != item.getCost()) {
+                            // update database
+                            new UpdateShopItem(plugin).updateCost(cost, item.getId());
+                            // find armor stand and update display name
+                            for (Entity e : item.getLocation().getWorld().getNearbyEntities(item.getLocation(), 0.5d, 1.0d, 0.5d)) {
+                                if (e instanceof ArmorStand) {
+                                    e.setCustomName(ChatColor.RED + "Cost:" + ChatColor.RESET + String.format(" %.2f", cost));
+                                }
+                            }
+                        }
+                    }
+                }
             }
+            // need at least 2 arguments from here on
             if (args.length < 2) {
                 player.sendMessage(plugin.getPluginName() + "Too few command arguments!");
                 return true;

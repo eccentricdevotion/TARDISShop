@@ -18,7 +18,7 @@ commands:
   tardisshop:
     aliases: [tshop]
     description: Add and remove TARDISShop items.
-    usage: /<command> [add|remove] [item_name]
+    usage: /<command> [add|remove|update] [item_name]
     permission: tardisshop.admin
     permission-message: You don't have the permission <permission> to use this command
 depend: [TARDIS,Vault]

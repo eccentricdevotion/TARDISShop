@@ -120,7 +120,6 @@ public enum ShopItem {
     TIME_ROTOR_ELEVENTH("Time Rotor Eleventh", Material.LIGHT_GRAY_DYE, 10000004),
     TIME_ROTOR_TENTH("Time Rotor Tenth", Material.LIGHT_GRAY_DYE, 10000003),
     TIME_ROTOR_TWELFTH("Time Rotor Twelfth", Material.LIGHT_GRAY_DYE, 10000005),
-    //    TOCLAFANE_HEAD("Toclafane Head", Material.GUNPOWDER, 2, ShopItemRecipe.TWA),
     TOM_SEED("Tom Seed", Material.RED_MUSHROOM_BLOCK, 10000027, ShopItemRecipe.SEED),
     TWELFTH_SEED("Twelfth Seed", Material.RED_MUSHROOM_BLOCK, 10000028, ShopItemRecipe.SEED),
     VANILLA_JELLY_BABY("Vanilla Jelly Baby", Material.MELON_SLICE, 10000001, ShopItemRecipe.SHAPELESS),
