@@ -98,6 +98,9 @@ public class TARDISShopItemInteract implements Listener {
             ShopItem recipe = ShopItem.valueOf(TARDISStringUtils.toEnumUppercase(item));
             ItemStack is;
             switch (recipe.getRecipeType()) {
+                case BLUEPRINT:
+                    is = ShopItemGetter.getBlueprintItem(recipe, player);
+                    break;
                 case TWA:
                     is = ShopItemGetter.getTWAItem(recipe);
                     break;

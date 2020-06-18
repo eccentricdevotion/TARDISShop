@@ -79,6 +79,7 @@ public class TARDISShopCommand extends TARDISCompleter implements CommandExecuto
                         }
                     }
                 }
+                return true;
             }
             // need at least 2 arguments from here on
             if (args.length < 2) {

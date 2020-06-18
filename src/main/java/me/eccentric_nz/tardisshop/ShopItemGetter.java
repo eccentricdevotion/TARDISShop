@@ -35,4 +35,8 @@ public class ShopItemGetter {
     public static ItemStack getShapeItem(ShopItem item, Player player) {
         return TARDISShop.getTardisAPI().getTARDISShapeItem(item.getDisplayName(), player);
     }
+
+    public static ItemStack getBlueprintItem(ShopItem item, Player player) {
+        return TARDISShop.getTardisAPI().getTARDISBlueprintItem(item.toString(), player);
+    }
 }
