@@ -37,7 +37,7 @@
         <dependency>
             <groupId>me.eccentric_nz.TARDIS</groupId>
             <artifactId>TARDIS</artifactId>
-            <version>4.4.4</version>
+            <version>4.4.5</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
@@ -51,7 +51,7 @@
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>vault</artifactId>
-            <version>1.7.2</version>
+            <version>1.7.3</version>
             <type>jar</type>
             <scope>system</scope>
             <systemPath>${basedir}/lib/Vault.jar</systemPath>
