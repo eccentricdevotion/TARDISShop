@@ -18,7 +18,7 @@ public class TARDISShopItemBreak implements Listener {
     @EventHandler
     public void onShopItemBreak(BlockBreakEvent event) {
         Block block = event.getBlock();
-        if (block != null && block.getType() == plugin.getBlockMaterial()) {
+        if (block.getType() == plugin.getBlockMaterial()) {
             String location = block.getLocation().toString();
             ResultSetShopItem rs = new ResultSetShopItem(plugin);
             event.setCancelled(rs.itemFromBlock(location));

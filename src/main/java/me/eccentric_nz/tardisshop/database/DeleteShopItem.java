@@ -33,13 +33,13 @@ public class DeleteShopItem {
         where.forEach((key, value) -> {
             sbw.append(key).append(" = ");
             if (value instanceof String || value instanceof UUID) {
-                sbw.append("'").append(value.toString()).append("' AND ");
+                sbw.append("'").append(value).append("' AND ");
             } else {
                 sbw.append(value).append(" AND ");
             }
         });
         where.clear();
-        values = sbw.toString().substring(0, sbw.length() - 5);
+        values = sbw.substring(0, sbw.length() - 5);
         String query = "DELETE FROM items WHERE " + values;
         try {
             statement = connection.createStatement();

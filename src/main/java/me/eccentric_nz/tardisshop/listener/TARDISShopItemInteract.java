@@ -1,6 +1,6 @@
 package me.eccentric_nz.tardisshop.listener;
 
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.tardis.utility.TARDISStringUtils;
 import me.eccentric_nz.tardisshop.*;
 import me.eccentric_nz.tardisshop.database.DeleteShopItem;
 import me.eccentric_nz.tardisshop.database.ResultSetShopItem;
@@ -96,22 +96,12 @@ public class TARDISShopItemInteract implements Listener {
     private void giveItem(String item, Player player) {
         try {
             ShopItem recipe = ShopItem.valueOf(TARDISStringUtils.toEnumUppercase(item));
-            ItemStack is;
-            switch (recipe.getRecipeType()) {
-                case BLUEPRINT:
-                    is = ShopItemGetter.getBlueprintItem(recipe, player);
-                    break;
-                case TWA:
-                    is = ShopItemGetter.getTWAItem(recipe);
-                    break;
-                case SEED:
-                    is = ShopItemGetter.getSeedItem(recipe);
-                    break;
-                case SHAPELESS:
-                default:
-                    is = ShopItemGetter.getShapeItem(recipe, player);
-                    break;
-            }
+            ItemStack is = switch (recipe.getRecipeType()) {
+                case BLUEPRINT -> ShopItemGetter.getBlueprintItem(recipe, player);
+                case TWA -> ShopItemGetter.getTWAItem(recipe);
+                case SEED -> ShopItemGetter.getSeedItem(recipe);
+                default -> ShopItemGetter.getShapeItem(recipe, player);
+            };
             if (is != null) {
                 HashMap<Integer, ItemStack> res = player.getInventory().addItem(is);
                 if (!res.isEmpty()) {

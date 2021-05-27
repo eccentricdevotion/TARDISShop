@@ -1,6 +1,6 @@
 package me.eccentric_nz.tardisshop.database;
 
-import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
+import me.eccentric_nz.tardis.utility.TARDISStaticLocationGetters;
 import me.eccentric_nz.tardisshop.TARDISShop;
 import me.eccentric_nz.tardisshop.TARDISShopItem;
 

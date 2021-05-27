@@ -1,6 +1,6 @@
 package me.eccentric_nz.tardisshop;
 
-import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
+import me.eccentric_nz.tardis.utility.TARDISStringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
@@ -10,6 +10,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Vector;
+
+import java.util.Objects;
 
 public class TARDISShopItemSpawner {
 
@@ -25,11 +27,12 @@ public class TARDISShopItemSpawner {
             ShopItem si = ShopItem.valueOf(toEnum);
             ItemStack is = new ItemStack(si.getMaterial(), 1);
             ItemMeta im = is.getItemMeta();
+            assert im != null;
             im.setCustomModelData(si.getCustomModelData());
             im.setDisplayName(what.getItem());
             im.getPersistentDataContainer().set(plugin.getItemKey(), PersistentDataType.INTEGER, 10001);
             is.setItemMeta(im);
-            Item item = location.getWorld().dropItem(location, is);
+            Item item = Objects.requireNonNull(location.getWorld()).dropItem(location, is);
             item.setVelocity(new Vector(0, 0, 0));
             item.getPersistentDataContainer().set(plugin.getItemKey(), PersistentDataType.INTEGER, 10001);
             item.setCustomName(what.getItem());
