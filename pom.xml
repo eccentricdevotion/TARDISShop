@@ -4,14 +4,37 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>me.eccentric_nz.tardisshop</groupId>
 	<artifactId>TARDISShop</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
 	<name>TARDISShop</name>
+	<description>A TARDIS add-on that allows purchasing items from the main plugin</description>
+	<url>https://github.com/eccentricdevotion/TARDISShop</url>
+	<inceptionYear>2020</inceptionYear>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>16</maven.compiler.source>
 		<maven.compiler.target>16</maven.compiler.target>
 		<java.version>16</java.version>
 	</properties>
+	<licenses>
+		<license>
+			<name>GNU General Public License v3.0</name>
+			<url>https://github.com/eccentricdevotion/TARDISShop/blob/master/LICENSE</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/eccentricdevotion/TARDISShop/issues</url>
+	</issueManagement>
+	<scm>
+		<connection>scm:git:ssh://github.com/eccentricdevotion/TARDISShop</connection>
+		<developerConnection>scm:git:ssh://github.com/eccentricdevotion/TARDISShop</developerConnection>
+	</scm>
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>http://tardisjenkins.duckdns.org:8080</url>
+	</ciManagement>
 	<repositories>
 		<repository>
 			<id>spigot-repo</id>
@@ -35,13 +58,11 @@
 		<profile>
 			<id>local</id>
 			<activation>
-				<property>
-					<name>!env.BUILD_NUMBER</name>
-				</property>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
 				<!-- Set the build number to the date and time of the build -->
-				<project.buildNumber>${timestamp}</project.buildNumber>
+				<build.number>${timestamp}</build.number>
 			</properties>
 			<build>
 				<plugins>
@@ -54,11 +75,14 @@
 						</configuration>
 						<executions>
 							<execution>
-								<id>buildnumber</id>
+								<id>create-timestamp-id</id>
 								<phase>validate</phase>
 								<goals>
-									<goal>create</goal>
+									<goal>create-timestamp</goal>
 								</goals>
+								<configuration>
+									<timestampFormat>yyyy.MM.dd-HH.mm.ss</timestampFormat>
+								</configuration>
 							</execution>
 						</executions>
 					</plugin>
@@ -74,11 +98,12 @@
 			</activation>
 			<properties>
 				<!-- Get the build number from Jenkins -->
-				<project.buildNumber>${env.BUILD_NUMBER}</project.buildNumber>
+				<build.number>${env.BUILD_NUMBER}</build.number>
 			</properties>
 			<build>
 				<plugins>
 					<plugin>
+						<!-- Attach Javadocs -->
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<version>3.3.0</version>
@@ -100,8 +125,8 @@
 		</profile>
 	</profiles>
 	<build>
-		<finalName>${project.artifactId}-${project.version}-${project.buildNumber}</finalName>
-		<defaultGoal>install</defaultGoal>
+		<finalName>${project.artifactId}-${project.version}</finalName>
+		<defaultGoal>clean package install</defaultGoal>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -122,27 +147,34 @@
 			<version>1.16.5-R0.1-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.code.gson</groupId>
+					<artifactId>gson</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>me.eccentric_nz.tardis</groupId>
 			<artifactId>TARDIS</artifactId>
-			<version>4.6.2-SNAPSHOT</version>
+			<version>4.6.2</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>me.eccentric_nz.tardisweepingangels</groupId>
 			<artifactId>TARDISWeepingAngels</artifactId>
-			<version>3.3.3-SNAPSHOT</version>
+			<version>3.3.3</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.github.MilkBowl</groupId>
+			<groupId>net.milkbowl.vault</groupId>
 			<artifactId>VaultAPI</artifactId>
 			<version>1.7</version>
 			<type>jar</type>
-			<scope>compile</scope>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/Vault.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.jetbrains</groupId>

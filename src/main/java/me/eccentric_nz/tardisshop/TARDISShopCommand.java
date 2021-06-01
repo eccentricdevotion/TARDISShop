@@ -53,7 +53,8 @@ public class TARDISShopCommand extends TARDISCompleter implements CommandExecuto
 			}
 			if (args[0].equalsIgnoreCase("remove")) {
 				plugin.getRemovingItem().add(player.getUniqueId());
-				player.sendMessage(plugin.getPluginName() + "Click the " + plugin.getBlockMaterial().toString() + " block to remove the database record.");
+				player.sendMessage(plugin.getPluginName() + "Click the " + plugin.getBlockMaterial().toString() +
+								   " block to remove the database record.");
 				return true;
 			} else if (args[0].equalsIgnoreCase("update")) {
 				// reload items.yml
@@ -75,7 +76,8 @@ public class TARDISShopCommand extends TARDISCompleter implements CommandExecuto
 							// find armor stand and update display name
 							for (Entity e : Objects.requireNonNull(item.getLocation().getWorld()).getNearbyEntities(item.getLocation(), 0.5d, 1.0d, 0.5d)) {
 								if (e instanceof ArmorStand) {
-									e.setCustomName(ChatColor.RED + "Cost:" + ChatColor.RESET + String.format(" %.2f", cost));
+									e.setCustomName(
+											ChatColor.RED + "Cost:" + ChatColor.RESET + String.format(" %.2f", cost));
 								}
 							}
 						}
@@ -97,7 +99,8 @@ public class TARDISShopCommand extends TARDISCompleter implements CommandExecuto
 				double cost = plugin.getItemsConfig().getDouble(name);
 				TARDISShopItem item = new InsertShopItem(plugin).addNamedItem(TARDISStringUtils.capitalise(args[1]), cost);
 				plugin.getSettingItem().put(player.getUniqueId(), item);
-				player.sendMessage(plugin.getPluginName() + "Click the " + plugin.getBlockMaterial().toString() + " block to update the database record.");
+				player.sendMessage(plugin.getPluginName() + "Click the " + plugin.getBlockMaterial().toString() +
+								   " block to update the database record.");
 				return true;
 			}
 			return true;

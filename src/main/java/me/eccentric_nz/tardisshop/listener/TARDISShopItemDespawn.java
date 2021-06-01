@@ -8,16 +8,16 @@ import org.bukkit.persistence.PersistentDataType;
 
 public class TARDISShopItemDespawn implements Listener {
 
-    private final TARDISShop plugin;
+	private final TARDISShop plugin;
 
-    public TARDISShopItemDespawn(TARDISShop plugin) {
-        this.plugin = plugin;
-    }
+	public TARDISShopItemDespawn(TARDISShop plugin) {
+		this.plugin = plugin;
+	}
 
-    @EventHandler
-    public void onShopItemDespawn(ItemDespawnEvent event) {
-        if (event.getEntity().getPersistentDataContainer().has(plugin.getItemKey(), PersistentDataType.INTEGER)) {
-            event.setCancelled(true);
-        }
-    }
+	@EventHandler
+	public void onShopItemDespawn(ItemDespawnEvent event) {
+		if (event.getEntity().getPersistentDataContainer().has(plugin.getItemKey(), PersistentDataType.INTEGER)) {
+			event.setCancelled(true);
+		}
+	}
 }
