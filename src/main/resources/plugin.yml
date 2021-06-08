@@ -1,12 +1,15 @@
-author: eccentric_nz
-description: A simple shop plugin for TARDIS items
+authors: [eccentric_nz]
 main: me.eccentric_nz.tardisshop.TARDISShop
 name: TARDISShop
-load: POSTWORLD
+description: A simple shop plugin for TARDIS items
 version: 1.0.0
-api-version: 1.15
+api-version: 1.16
 website: http://tardisjenkins.duckdns.org:8080/job/TARDISShop/
-url: http://tardisjenkins.duckdns.org:8080/job/TARDISShop/
+dev-url: http://github.com/eccentricdevotion/TARDISShop/
+url: http://eccentricdevotion.github.io/TARDIS/
+load: POSTWORLD
+depend: [TARDIS,Vault]
+soft-depend: [TARDISWeepingAngels]
 permissions:
   tardisshop.use:
     description: Allow players to buy items from a TARDIS Shop.
@@ -21,5 +24,3 @@ commands:
     usage: /<command> [add|remove|update] [item_name]
     permission: tardisshop.admin
     permission-message: You don't have the permission <permission> to use this command
-depend: [TARDIS,Vault]
-soft-depend: [TARDISWeepingAngels]
