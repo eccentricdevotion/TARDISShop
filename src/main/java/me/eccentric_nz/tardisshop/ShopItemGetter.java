@@ -10,33 +10,33 @@ import org.bukkit.inventory.ItemStack;
 
 public class ShopItemGetter {
 
-	public static ItemStack getTWAItem(ShopItem item) {
-		if (TARDISShop.isTWAEnabled()) {
-			// get TARDISWeepingAngels API
-			TARDISWeepingAngelsAPI twa = TARDISAngelsAPI.getAPI(TARDISPlugin.plugin);
-			if (item.getMaterial() == Material.BONE) {
-				// K9
-				return twa.getK9();
-			} else {
-				// Monster head
-				String m = item.toString().replace("_HEAD", "");
-				Monster monster = Monster.valueOf(m);
-				return twa.getHead(monster);
-			}
-		}
-		return null;
-	}
+    public static ItemStack getTWAItem(ShopItem item) {
+        if (TARDISShop.isTWAEnabled()) {
+            // get TARDISWeepingAngels API
+            TARDISWeepingAngelsAPI twa = TARDISAngelsAPI.getAPI(TARDISPlugin.plugin);
+            if (item.getMaterial() == Material.BONE) {
+                // K9
+                return twa.getK9();
+            } else {
+                // Monster head
+                String m = item.toString().replace("_HEAD", "");
+                Monster monster = Monster.valueOf(m);
+                return twa.getHead(monster);
+            }
+        }
+        return null;
+    }
 
-	public static ItemStack getSeedItem(ShopItem item) {
-		String s = item.toString().replace("_SEED", "");
-		return TARDISShop.getTardisAPI().getTARDISSeedItem(s);
-	}
+    public static ItemStack getSeedItem(ShopItem item) {
+        String s = item.toString().replace("_SEED", "");
+        return TARDISShop.getTardisAPI().getTARDISSeedItem(s);
+    }
 
-	public static ItemStack getShapeItem(ShopItem item, Player player) {
-		return TARDISShop.getTardisAPI().getTARDISShapeItem(item.getDisplayName(), player);
-	}
+    public static ItemStack getShapeItem(ShopItem item, Player player) {
+        return TARDISShop.getTardisAPI().getTARDISShapeItem(item.getDisplayName(), player);
+    }
 
-	public static ItemStack getBlueprintItem(ShopItem item, Player player) {
-		return TARDISShop.getTardisAPI().getTARDISBlueprintItem(item.toString(), player);
-	}
+    public static ItemStack getBlueprintItem(ShopItem item, Player player) {
+        return TARDISShop.getTardisAPI().getTARDISBlueprintItem(item.toString(), player);
+    }
 }

@@ -9,19 +9,19 @@ import org.bukkit.event.block.BlockBreakEvent;
 
 public class TARDISShopItemBreak implements Listener {
 
-	private final TARDISShop plugin;
+    private final TARDISShop plugin;
 
-	public TARDISShopItemBreak(TARDISShop plugin) {
-		this.plugin = plugin;
-	}
+    public TARDISShopItemBreak(TARDISShop plugin) {
+        this.plugin = plugin;
+    }
 
-	@EventHandler
-	public void onShopItemBreak(BlockBreakEvent event) {
-		Block block = event.getBlock();
-		if (block.getType() == plugin.getBlockMaterial()) {
-			String location = block.getLocation().toString();
-			ResultSetShopItem rs = new ResultSetShopItem(plugin);
-			event.setCancelled(rs.itemFromBlock(location));
-		}
-	}
+    @EventHandler
+    public void onShopItemBreak(BlockBreakEvent event) {
+        Block block = event.getBlock();
+        if (block.getType() == plugin.getBlockMaterial()) {
+            String location = block.getLocation().toString();
+            ResultSetShopItem rs = new ResultSetShopItem(plugin);
+            event.setCancelled(rs.itemFromBlock(location));
+        }
+    }
 }
