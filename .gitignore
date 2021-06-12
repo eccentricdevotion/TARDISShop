@@ -1,26 +1,37 @@
-# Compiled class file
-*.class
+# osx noise
+.DS_Store
+profile
 
-# Log file
-*.log
+# xcode noise
+build/*
+*.mode1
+*.mode1v3
+*.mode2v3
+*.perspective
+*.perspectivev3
+*.pbxuser
+*.xcworkspace
+xcuserdata
 
-# BlueJ files
-*.ctxt
+# vscode
+.vscode/*
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-
-*.iml
+# svn & cvs
+.svn
+CVS
 /target/
-/.idea/
+/sounds/
+/psd/
+/nbproject/
+/bin/
+/movies/
+/OTG_Files/
+
+# other stuff
+.classpath
+.project
+.settings
+nb-configuration.xml
+
+.idea/
+*.iml
