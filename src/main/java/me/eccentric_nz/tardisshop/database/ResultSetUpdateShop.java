@@ -1,8 +1,24 @@
+/*
+ * Copyright (C) 2021 eccentric_nz
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package me.eccentric_nz.tardisshop.database;
 
 import me.eccentric_nz.tardis.utility.TARDISStaticLocationGetters;
-import me.eccentric_nz.tardisshop.TARDISShop;
-import me.eccentric_nz.tardisshop.TARDISShopItem;
+import me.eccentric_nz.tardisshop.TardisShopPlugin;
+import me.eccentric_nz.tardisshop.TardisShopItem;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,27 +29,27 @@ import java.util.List;
 
 public class ResultSetUpdateShop {
 
-    private final TARDISShopDatabase service = TARDISShopDatabase.getInstance();
+    private final TardisShopDatabase service = TardisShopDatabase.getInstance();
     private final Connection connection = service.getConnection();
-    private final TARDISShop plugin;
+    private final TardisShopPlugin plugin;
 
-    private List<TARDISShopItem> shopItems;
+    private List<TardisShopItem> shopItems;
 
-    public ResultSetUpdateShop(TARDISShop plugin) {
+    public ResultSetUpdateShop(TardisShopPlugin plugin) {
         this.plugin = plugin;
     }
 
     public boolean getAll() {
-        PreparedStatement statement = null;
-        ResultSet rs = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
         final String query = "SELECT * FROM items";
         try {
-            statement = connection.prepareStatement(query);
-            rs = statement.executeQuery();
-            if (rs.isBeforeFirst()) {
+            preparedStatement = connection.prepareStatement(query);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.isBeforeFirst()) {
                 shopItems = new ArrayList<>();
-                while (rs.next()) {
-                    shopItems.add(new TARDISShopItem(rs.getInt("item_id"), rs.getString("item"), TARDISStaticLocationGetters.getLocationFromBukkitString(rs.getString("location")), rs.getDouble("cost")));
+                while (resultSet.next()) {
+                    shopItems.add(new TardisShopItem(resultSet.getInt("item_id"), resultSet.getString("item"), TARDISStaticLocationGetters.getLocationFromBukkitString(resultSet.getString("location")), resultSet.getDouble("cost")));
                 }
                 return true;
             }
@@ -43,11 +59,11 @@ public class ResultSetUpdateShop {
             return false;
         } finally {
             try {
-                if (rs != null) {
-                    rs.close();
+                if (resultSet != null) {
+                    resultSet.close();
                 }
-                if (statement != null) {
-                    statement.close();
+                if (preparedStatement != null) {
+                    preparedStatement.close();
                 }
             } catch (SQLException e) {
                 plugin.debug("Error closing items table! " + e.getMessage());
@@ -55,7 +71,7 @@ public class ResultSetUpdateShop {
         }
     }
 
-    public List<TARDISShopItem> getShopItems() {
+    public List<TardisShopItem> getShopItems() {
         return shopItems;
     }
 }

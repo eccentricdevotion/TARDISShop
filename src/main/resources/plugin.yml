@@ -1,5 +1,5 @@
 authors: [eccentric_nz]
-main: me.eccentric_nz.tardisshop.TARDISShop
+main: me.eccentric_nz.tardisshop.TardisShopPlugin
 name: TARDISShop
 description: A simple shop plugin for TARDIS items
 version: 1.0.0

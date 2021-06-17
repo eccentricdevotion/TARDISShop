@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2021 eccentric_nz
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package me.eccentric_nz.tardisshop;
 
 import org.bukkit.Material;
@@ -214,7 +230,7 @@ public enum ShopItem {
     BLUEPRINT_FEATURE_NONE("Blueprint None", Material.MUSIC_DISC_MELLOHI, 10000001, ShopItemRecipe.BLUEPRINT),
     BLUEPRINT_PRESET_ANDESITE("Blueprint Andesite", Material.MUSIC_DISC_MELLOHI, 10000001, ShopItemRecipe.BLUEPRINT),
     BLUEPRINT_PRESET_ANGEL("Blueprint Angel", Material.MUSIC_DISC_MELLOHI, 10000001, ShopItemRecipe.BLUEPRINT),
-    BLUEPRINT_PRESET_APPERTURE("Blueprint Apperture", Material.MUSIC_DISC_MELLOHI, 10000001, ShopItemRecipe.BLUEPRINT),
+    BLUEPRINT_PRESET_APERTURE("Blueprint Apperture", Material.MUSIC_DISC_MELLOHI, 10000001, ShopItemRecipe.BLUEPRINT),
     BLUEPRINT_PRESET_CAKE("Blueprint Cake", Material.MUSIC_DISC_MELLOHI, 10000001, ShopItemRecipe.BLUEPRINT),
     BLUEPRINT_PRESET_CANDY("Blueprint Candy", Material.MUSIC_DISC_MELLOHI, 10000001, ShopItemRecipe.BLUEPRINT),
     BLUEPRINT_PRESET_CHALICE("Blueprint Chalice", Material.MUSIC_DISC_MELLOHI, 10000001, ShopItemRecipe.BLUEPRINT),

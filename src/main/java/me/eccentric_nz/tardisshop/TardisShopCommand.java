@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2021 eccentric_nz
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package me.eccentric_nz.tardisshop;
 
 import com.google.common.collect.ImmutableList;
@@ -23,20 +39,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class TARDISShopCommand extends TARDISCompleter implements CommandExecutor, TabCompleter {
+public class TardisShopCommand extends TARDISCompleter implements CommandExecutor, TabCompleter {
 
-    private final TARDISShop plugin;
+    private final TardisShopPlugin plugin;
     private final ImmutableList<String> ROOT_SUBS = ImmutableList.of("add", "remove", "update");
     private final ArrayList<String> ITEM_SUBS;
 
-    public TARDISShopCommand(TARDISShop plugin) {
+    public TardisShopCommand(TardisShopPlugin plugin) {
         this.plugin = plugin;
         ITEM_SUBS = new ArrayList<>(this.plugin.getItemsConfig().getKeys(false));
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, Command cmd, @NotNull String label, String[] args) {
-        if (cmd.getName().equalsIgnoreCase("tardisshop")) {
+    public boolean onCommand(@NotNull CommandSender sender, Command command, @NotNull String label, String[] args) {
+        if (command.getName().equalsIgnoreCase("tardisshop")) {
             Player player = null;
             if (sender instanceof Player) {
                 player = (Player) sender;
@@ -64,18 +80,18 @@ public class TARDISShopCommand extends TARDISCompleter implements CommandExecuto
                     plugin.debug("Failed to reload items.yml" + e.getMessage());
                 }
                 // get shop items
-                ResultSetUpdateShop rs = new ResultSetUpdateShop(plugin);
-                if (rs.getAll()) {
-                    for (TARDISShopItem item : rs.getShopItems()) {
+                ResultSetUpdateShop resultSetUpdateShop = new ResultSetUpdateShop(plugin);
+                if (resultSetUpdateShop.getAll()) {
+                    for (TardisShopItem item : resultSetUpdateShop.getShopItems()) {
                         String lookup = item.getItem().replace(" ", "_").toLowerCase();
                         double cost = plugin.getItemsConfig().getDouble(lookup);
                         if (cost != item.getCost()) {
                             // update database
                             new UpdateShopItem(plugin).updateCost(cost, item.getId());
                             // find armor stand and update display name
-                            for (Entity e : Objects.requireNonNull(item.getLocation().getWorld()).getNearbyEntities(item.getLocation(), 0.5d, 1.0d, 0.5d)) {
-                                if (e instanceof ArmorStand) {
-                                    e.setCustomName(ChatColor.RED + "Cost:" + ChatColor.RESET + String.format(" %.2f", cost));
+                            for (Entity entity : Objects.requireNonNull(item.getLocation().getWorld()).getNearbyEntities(item.getLocation(), 0.5d, 1.0d, 0.5d)) {
+                                if (entity instanceof ArmorStand) {
+                                    entity.setCustomName(ChatColor.RED + "Cost:" + ChatColor.RESET + String.format(" %.2f", cost));
                                 }
                             }
                         }
@@ -95,7 +111,7 @@ public class TARDISShopCommand extends TARDISCompleter implements CommandExecuto
                     return true;
                 }
                 double cost = plugin.getItemsConfig().getDouble(name);
-                TARDISShopItem item = new InsertShopItem(plugin).addNamedItem(TARDISStringUtils.capitalise(args[1]), cost);
+                TardisShopItem item = new InsertShopItem(plugin).addNamedItem(TARDISStringUtils.capitalise(args[1]), cost);
                 plugin.getSettingItem().put(player.getUniqueId(), item);
                 player.sendMessage(plugin.getPluginName() + "Click the " + plugin.getBlockMaterial().toString() + " block to update the database record.");
                 return true;

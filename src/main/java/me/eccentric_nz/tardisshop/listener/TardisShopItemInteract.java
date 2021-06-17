@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2021 eccentric_nz
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package me.eccentric_nz.tardisshop.listener;
 
 import me.eccentric_nz.tardis.utility.TARDISStringUtils;
@@ -23,11 +39,11 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class TARDISShopItemInteract implements Listener {
+public class TardisShopItemInteract implements Listener {
 
-    private final TARDISShop plugin;
+    private final TardisShopPlugin plugin;
 
-    public TARDISShopItemInteract(TARDISShop plugin) {
+    public TardisShopItemInteract(TardisShopPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -43,17 +59,17 @@ public class TARDISShopItemInteract implements Listener {
                 Player player = event.getPlayer();
                 UUID uuid = player.getUniqueId();
                 if (plugin.getSettingItem().containsKey(uuid)) {
-                    TARDISShopItem item = plugin.getSettingItem().get(uuid);
+                    TardisShopItem item = plugin.getSettingItem().get(uuid);
                     Location drop = location.clone().add(0.5d, 1.05d, 0.5d);
-                    new TARDISShopItemSpawner(plugin).setItem(drop, item);
+                    new TardisShopItemSpawner(plugin).setItem(drop, item);
                     // update location in database
                     new UpdateShopItem(plugin).addLocation(location.toString(), item.getId());
                     player.sendMessage(plugin.getPluginName() + "Item location added to database!");
                     plugin.getSettingItem().remove(uuid);
                 } else if (plugin.getRemovingItem().contains(uuid)) {
-                    for (Entity e : block.getWorld().getNearbyEntities(location, 1.0d, 2.0d, 1.0d)) {
-                        if (e instanceof Item && e.getPersistentDataContainer().has(plugin.getItemKey(), PersistentDataType.INTEGER) || e instanceof ArmorStand) {
-                            e.remove();
+                    for (Entity entity : block.getWorld().getNearbyEntities(location, 1.0d, 2.0d, 1.0d)) {
+                        if (entity instanceof Item && entity.getPersistentDataContainer().has(plugin.getItemKey(), PersistentDataType.INTEGER) || entity instanceof ArmorStand) {
+                            entity.remove();
                         }
                     }
                     // remove database record
@@ -65,9 +81,9 @@ public class TARDISShopItemInteract implements Listener {
                     plugin.getRemovingItem().remove(uuid);
                 } else {
                     // is it a shop block?
-                    ResultSetShopItem rs = new ResultSetShopItem(plugin);
-                    if (rs.itemFromBlock(location.toString())) {
-                        TARDISShopItem item = rs.getShopItem();
+                    ResultSetShopItem resultSetShopItem = new ResultSetShopItem(plugin);
+                    if (resultSetShopItem.itemFromBlock(location.toString())) {
+                        TardisShopItem item = resultSetShopItem.getShopItem();
                         String message;
                         // do they have sufficient credit?
                         if (player.hasPermission("tardis.admin") && plugin.getConfig().getBoolean("tardis_admin_free")) {
@@ -87,8 +103,8 @@ public class TARDISShopItemInteract implements Listener {
                     }
                 }
             } else if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
-                ResultSetShopItem rs = new ResultSetShopItem(plugin);
-                event.setCancelled(rs.itemFromBlock(location.toString()));
+                ResultSetShopItem resultSetShopItem = new ResultSetShopItem(plugin);
+                event.setCancelled(resultSetShopItem.itemFromBlock(location.toString()));
             }
         }
     }
@@ -96,14 +112,14 @@ public class TARDISShopItemInteract implements Listener {
     private void giveItem(String item, Player player) {
         try {
             ShopItem recipe = ShopItem.valueOf(TARDISStringUtils.toEnumUppercase(item));
-            ItemStack is = switch (recipe.getRecipeType()) {
+            ItemStack itemStack = switch (recipe.getRecipeType()) {
                 case BLUEPRINT -> ShopItemGetter.getBlueprintItem(recipe, player);
                 case TWA -> ShopItemGetter.getTWAItem(recipe);
                 case SEED -> ShopItemGetter.getSeedItem(recipe);
                 default -> ShopItemGetter.getShapeItem(recipe, player);
             };
-            if (is != null) {
-                HashMap<Integer, ItemStack> res = player.getInventory().addItem(is);
+            if (itemStack != null) {
+                HashMap<Integer, ItemStack> res = player.getInventory().addItem(itemStack); // TODO Figure out what this variable is supposed to be, and change its name to be more understandable.
                 if (!res.isEmpty()) {
                     for (ItemStack stack : res.values()) {
                         player.getWorld().dropItem(player.getLocation(), stack);

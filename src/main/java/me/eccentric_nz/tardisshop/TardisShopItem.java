@@ -16,11 +16,35 @@
  */
 package me.eccentric_nz.tardisshop;
 
-public enum ShopItemRecipe {
+import org.bukkit.Location;
 
-    BLUEPRINT,
-    SHAPED,
-    SHAPELESS,
-    SEED,
-    TWA
+public class TardisShopItem {
+
+    private final int id;
+    private final String item;
+    private final Location location;
+    private final double cost;
+
+    public TardisShopItem(int id, String item, Location location, double cost) {
+        this.id = id;
+        this.item = item;
+        this.location = location;
+        this.cost = cost;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getItem() {
+        return item;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public double getCost() {
+        return cost;
+    }
 }

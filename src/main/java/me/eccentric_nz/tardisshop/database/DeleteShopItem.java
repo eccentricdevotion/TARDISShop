@@ -1,6 +1,22 @@
+/*
+ * Copyright (C) 2021 eccentric_nz
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package me.eccentric_nz.tardisshop.database;
 
-import me.eccentric_nz.tardisshop.TARDISShop;
+import me.eccentric_nz.tardisshop.TardisShopPlugin;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,11 +27,11 @@ import java.util.UUID;
 
 public class DeleteShopItem {
 
-    private final TARDISShopDatabase service = TARDISShopDatabase.getInstance();
+    private final TardisShopDatabase service = TardisShopDatabase.getInstance();
     private final Connection connection = service.getConnection();
-    private final TARDISShop plugin;
+    private final TardisShopPlugin plugin;
 
-    public DeleteShopItem(TARDISShop plugin) {
+    public DeleteShopItem(TardisShopPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -29,17 +45,17 @@ public class DeleteShopItem {
     public void removeRecord(String table, HashMap<String, Object> where) {
         Statement statement = null;
         String values;
-        StringBuilder sbw = new StringBuilder();
+        StringBuilder stringBuilderWheres = new StringBuilder();
         where.forEach((key, value) -> {
-            sbw.append(key).append(" = ");
+            stringBuilderWheres.append(key).append(" = ");
             if (value instanceof String || value instanceof UUID) {
-                sbw.append("'").append(value).append("' AND ");
+                stringBuilderWheres.append("'").append(value).append("' AND ");
             } else {
-                sbw.append(value).append(" AND ");
+                stringBuilderWheres.append(value).append(" AND ");
             }
         });
         where.clear();
-        values = sbw.substring(0, sbw.length() - 5);
+        values = stringBuilderWheres.substring(0, stringBuilderWheres.length() - 5);
         String query = "DELETE FROM items WHERE " + values;
         try {
             statement = connection.createStatement();
@@ -58,18 +74,18 @@ public class DeleteShopItem {
     }
 
     public int removeByLocation(String location) {
-        PreparedStatement ps = null;
+        PreparedStatement preparedStatement = null;
         final String query = "DELETE FROM items WHERE location = ?";
         try {
-            ps = connection.prepareStatement(query);
-            ps.setString(1, location);
-            return ps.executeUpdate();
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, location);
+            return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             plugin.debug("Delete error for items table! " + e.getMessage());
         } finally {
             try {
-                if (ps != null) {
-                    ps.close();
+                if (preparedStatement != null) {
+                    preparedStatement.close();
                 }
             } catch (SQLException e) {
                 plugin.debug("Error closing items table! " + e.getMessage());

@@ -1,13 +1,29 @@
+/*
+ * Copyright (C) 2021 eccentric_nz
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package me.eccentric_nz.tardisshop;
 
 import me.eccentric_nz.tardis.TARDISPlugin;
 import me.eccentric_nz.tardis.api.TARDISAPI;
 import me.eccentric_nz.tardis.files.TARDISFileCopier;
-import me.eccentric_nz.tardisshop.database.TARDISShopDatabase;
-import me.eccentric_nz.tardisshop.listener.TARDISShopItemBreak;
-import me.eccentric_nz.tardisshop.listener.TARDISShopItemDespawn;
-import me.eccentric_nz.tardisshop.listener.TARDISShopItemExplode;
-import me.eccentric_nz.tardisshop.listener.TARDISShopItemInteract;
+import me.eccentric_nz.tardisshop.database.TardisShopDatabase;
+import me.eccentric_nz.tardisshop.listener.TardisShopItemBreak;
+import me.eccentric_nz.tardisshop.listener.TardisShopItemDespawn;
+import me.eccentric_nz.tardisshop.listener.TardisShopItemExplode;
+import me.eccentric_nz.tardisshop.listener.TardisShopItemInteract;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -25,12 +41,12 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.*;
 
-public class TARDISShop extends JavaPlugin {
+public class TardisShopPlugin extends JavaPlugin {
 
     private static boolean twaEnabled = false;
-    private static TARDISAPI tardisapi;
-    private final TARDISShopDatabase service = TARDISShopDatabase.getInstance();
-    private final HashMap<UUID, TARDISShopItem> settingItem = new HashMap<>();
+    private static TARDISAPI tardisApi;
+    private final TardisShopDatabase service = TardisShopDatabase.getInstance();
+    private final HashMap<UUID, TardisShopItem> settingItem = new HashMap<>();
     private final Set<UUID> removingItem = new HashSet<>();
     private String pluginName;
     private Economy economy;
@@ -44,7 +60,7 @@ public class TARDISShop extends JavaPlugin {
     }
 
     public static TARDISAPI getTardisAPI() {
-        return tardisapi;
+        return tardisApi;
     }
 
     @Override
@@ -61,36 +77,36 @@ public class TARDISShop extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-        PluginManager pm = getServer().getPluginManager();
+        PluginManager pluginManager = getServer().getPluginManager();
         String enable = "";
         /* Get TARDIS */
-        Plugin p = pm.getPlugin("TARDIS");
-        if (p == null || !p.isEnabled()) {
+        Plugin plugin = pluginManager.getPlugin("TARDIS");
+        if (plugin == null || !plugin.isEnabled()) {
             enable = "TARDIS";
         }
         copy("items.yml");
-        tardis = (TARDISPlugin) p;
-        tardisapi = tardis.getTardisAPI();
+        tardis = (TARDISPlugin) plugin;
+        tardisApi = tardis.getTardisAPI();
         /* Get Vault */
-        Plugin vault = pm.getPlugin("Vault");
+        Plugin vault = pluginManager.getPlugin("Vault");
         if (vault == null || !vault.isEnabled()) {
             enable = "Vault";
         }
-        if (pm.isPluginEnabled("TARDISWeepingAngels")) {
+        if (pluginManager.isPluginEnabled("TARDISWeepingAngels")) {
             twaEnabled = true;
         }
         if (enable.isEmpty()) {
             setupEconomy();
             PluginDescriptionFile pdfFile = getDescription();
             pluginName = ChatColor.GOLD + "[" + pdfFile.getName() + "]" + ChatColor.RESET + " ";
-            pm.registerEvents(new TARDISShopItemInteract(this), this);
-            pm.registerEvents(new TARDISShopItemDespawn(this), this);
-            pm.registerEvents(new TARDISShopItemBreak(this), this);
-            pm.registerEvents(new TARDISShopItemExplode(this), this);
+            pluginManager.registerEvents(new TardisShopItemInteract(this), this);
+            pluginManager.registerEvents(new TardisShopItemDespawn(this), this);
+            pluginManager.registerEvents(new TardisShopItemBreak(this), this);
+            pluginManager.registerEvents(new TardisShopItemExplode(this), this);
             itemKey = new NamespacedKey(this, "tardis_shop_item");
             blockMaterial = Material.valueOf(getConfig().getString("block"));
             itemsConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "items.yml"));
-            TARDISShopCommand command = new TARDISShopCommand(this);
+            TardisShopCommand command = new TardisShopCommand(this);
             Objects.requireNonNull(getCommand("tardisshop")).setExecutor(command);
             Objects.requireNonNull(getCommand("tardisshop")).setTabCompleter(command);
             try {
@@ -102,7 +118,7 @@ public class TARDISShop extends JavaPlugin {
             }
         } else {
             getServer().getConsoleSender().sendMessage(pluginName + ChatColor.RED + "This plugin requires " + enable + " to function, disabling...");
-            pm.disablePlugin(this);
+            pluginManager.disablePlugin(this);
         }
     }
 
@@ -111,11 +127,11 @@ public class TARDISShop extends JavaPlugin {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             return;
         }
-        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) {
+        RegisteredServiceProvider<Economy> registeredServiceProvider = getServer().getServicesManager().getRegistration(Economy.class);
+        if (registeredServiceProvider == null) {
             return;
         }
-        economy = rsp.getProvider();
+        economy = registeredServiceProvider.getProvider();
     }
 
     public String getPluginName() {
@@ -130,7 +146,7 @@ public class TARDISShop extends JavaPlugin {
         return itemKey;
     }
 
-    public HashMap<UUID, TARDISShopItem> getSettingItem() {
+    public HashMap<UUID, TardisShopItem> getSettingItem() {
         return settingItem;
     }
 
@@ -146,21 +162,21 @@ public class TARDISShop extends JavaPlugin {
         return itemsConfig;
     }
 
-    public void debug(Object o) {
+    public void debug(Object object) {
         if (getConfig().getBoolean("debug")) {
-            getServer().getConsoleSender().sendMessage("[TARDISShop Debug] " + o);
+            getServer().getConsoleSender().sendMessage("[TARDISShop Debug] " + object);
         }
     }
 
     /**
      * Copies a file to the TARDISShop plugin directory if it is not present.
      *
-     * @param filename the name of the file to copy
+     * @param fileName the name of the file to copy
      * @return a File
      */
-    private File copy(String filename) {
-        String filepath = getDataFolder() + File.separator + filename;
-        InputStream in = getResource(filename);
+    private File copy(String fileName) {
+        String filepath = getDataFolder() + File.separator + fileName;
+        InputStream in = getResource(fileName);
         return TARDISFileCopier.copy(filepath, in, false);
     }
 }
