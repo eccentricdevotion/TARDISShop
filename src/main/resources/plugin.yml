@@ -2,7 +2,8 @@ authors: [eccentric_nz]
 main: me.eccentric_nz.tardisshop.TardisShopPlugin
 name: TARDISShop
 description: A simple shop plugin for TARDIS items
-version: 1.0.0
+version: maven-version-number
+build-number: maven-build-number
 api-version: 1.16
 website: http://tardisjenkins.duckdns.org:8080/job/TARDISShop/
 dev-url: http://github.com/eccentricdevotion/TARDISShop/
