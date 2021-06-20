@@ -16,8 +16,8 @@
  */
 package me.eccentric_nz.tardisshop;
 
-import me.eccentric_nz.tardis.TARDISPlugin;
-import me.eccentric_nz.tardis.planets.TARDISAngelsAPI;
+import me.eccentric_nz.tardis.TardisPlugin;
+import me.eccentric_nz.tardis.planets.TardisAngelsApi;
 import me.eccentric_nz.tardisweepingangels.TardisWeepingAngelsApi;
 import me.eccentric_nz.tardisweepingangels.utils.Monster;
 import org.bukkit.Material;
@@ -29,7 +29,7 @@ public class ShopItemGetter {
     public static ItemStack getTWAItem(ShopItem item) {
         if (TardisShopPlugin.isTWAEnabled()) {
             // get TARDISWeepingAngels API
-            TardisWeepingAngelsApi weepingAngelsAPI = TARDISAngelsAPI.getAPI(TARDISPlugin.plugin);
+            TardisWeepingAngelsApi weepingAngelsAPI = TardisAngelsApi.getAPI(TardisPlugin.plugin);
             if (item.getMaterial() == Material.BONE) {
                 // K9
                 return weepingAngelsAPI.getK9();

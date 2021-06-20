@@ -16,9 +16,9 @@
  */
 package me.eccentric_nz.tardisshop;
 
-import me.eccentric_nz.tardis.TARDISPlugin;
-import me.eccentric_nz.tardis.api.TARDISAPI;
-import me.eccentric_nz.tardis.files.TARDISFileCopier;
+import me.eccentric_nz.tardis.TardisPlugin;
+import me.eccentric_nz.tardis.api.TardisApi;
+import me.eccentric_nz.tardis.files.TardisFileCopier;
 import me.eccentric_nz.tardisshop.database.TardisShopDatabase;
 import me.eccentric_nz.tardisshop.listener.TardisShopItemBreak;
 import me.eccentric_nz.tardisshop.listener.TardisShopItemDespawn;
@@ -44,13 +44,13 @@ import java.util.*;
 public class TardisShopPlugin extends JavaPlugin {
 
     private static boolean twaEnabled = false;
-    private static TARDISAPI tardisApi;
+    private static TardisApi tardisApi;
     private final TardisShopDatabase service = TardisShopDatabase.getInstance();
     private final HashMap<UUID, TardisShopItem> settingItem = new HashMap<>();
     private final Set<UUID> removingItem = new HashSet<>();
     private String pluginName;
     private Economy economy;
-    private TARDISPlugin tardis;
+    private TardisPlugin tardis;
     private NamespacedKey itemKey;
     private Material blockMaterial;
     private FileConfiguration itemsConfig;
@@ -59,7 +59,7 @@ public class TardisShopPlugin extends JavaPlugin {
         return twaEnabled;
     }
 
-    public static TARDISAPI getTardisAPI() {
+    public static TardisApi getTardisAPI() {
         return tardisApi;
     }
 
@@ -85,7 +85,7 @@ public class TardisShopPlugin extends JavaPlugin {
             enable = "TARDIS";
         }
         copy("items.yml");
-        tardis = (TARDISPlugin) plugin;
+        tardis = (TardisPlugin) plugin;
         tardisApi = tardis.getTardisAPI();
         /* Get Vault */
         Plugin vault = pluginManager.getPlugin("Vault");
@@ -177,6 +177,6 @@ public class TardisShopPlugin extends JavaPlugin {
     private File copy(String fileName) {
         String filepath = getDataFolder() + File.separator + fileName;
         InputStream in = getResource(fileName);
-        return TARDISFileCopier.copy(filepath, in, false);
+        return TardisFileCopier.copy(filepath, in, false);
     }
 }

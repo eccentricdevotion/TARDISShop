@@ -16,7 +16,7 @@
  */
 package me.eccentric_nz.tardisshop;
 
-import me.eccentric_nz.tardis.utility.TARDISStringUtils;
+import me.eccentric_nz.tardis.utility.TardisStringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
@@ -38,7 +38,7 @@ public class TardisShopItemSpawner {
     }
 
     public void setItem(Location location, TardisShopItem what) {
-        String toEnum = TARDISStringUtils.toEnumUppercase(what.getItem());
+        String toEnum = TardisStringUtils.toEnumUppercase(what.getItem());
         try {
             ShopItem shopItem = ShopItem.valueOf(toEnum);
             ItemStack itemStack = new ItemStack(shopItem.getMaterial(), 1);
