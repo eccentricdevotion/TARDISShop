@@ -55,11 +55,11 @@ public class TardisShopPlugin extends JavaPlugin {
     private Material blockMaterial;
     private FileConfiguration itemsConfig;
 
-    public static boolean isTWAEnabled() {
+    public static boolean isTwaEnabled() {
         return twaEnabled;
     }
 
-    public static TardisApi getTardisAPI() {
+    public static TardisApi getTardisApi() {
         return tardisApi;
     }
 
@@ -86,7 +86,7 @@ public class TardisShopPlugin extends JavaPlugin {
         }
         copy("items.yml");
         tardis = (TardisPlugin) plugin;
-        tardisApi = tardis.getTardisAPI();
+        tardisApi = tardis.getTardisApi();
         /* Get Vault */
         Plugin vault = pluginManager.getPlugin("Vault");
         if (vault == null || !vault.isEnabled()) {

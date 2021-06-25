@@ -26,18 +26,18 @@ import org.bukkit.inventory.ItemStack;
 
 public class ShopItemGetter {
 
-    public static ItemStack getTWAItem(ShopItem item) {
-        if (TardisShopPlugin.isTWAEnabled()) {
+    public static ItemStack getTwaItem(ShopItem item) {
+        if (TardisShopPlugin.isTwaEnabled()) {
             // get TARDISWeepingAngels API
-            TardisWeepingAngelsApi weepingAngelsAPI = TardisAngelsApi.getAPI(TardisPlugin.plugin);
+            TardisWeepingAngelsApi weepingAngelsApi = TardisAngelsApi.getApi(TardisPlugin.plugin);
             if (item.getMaterial() == Material.BONE) {
                 // K9
-                return weepingAngelsAPI.getK9();
+                return weepingAngelsApi.getK9();
             } else {
                 // Monster head
                 String m = item.toString().replace("_HEAD", "");
                 Monster monster = Monster.valueOf(m);
-                return weepingAngelsAPI.getHead(monster);
+                return weepingAngelsApi.getHead(monster);
             }
         }
         return null;
@@ -45,14 +45,14 @@ public class ShopItemGetter {
 
     public static ItemStack getSeedItem(ShopItem item) {
         String s = item.toString().replace("_SEED", "");
-        return TardisShopPlugin.getTardisAPI().getTARDISSeedItem(s);
+        return TardisShopPlugin.getTardisApi().getTARDISSeedItem(s);
     }
 
     public static ItemStack getShapeItem(ShopItem item, Player player) {
-        return TardisShopPlugin.getTardisAPI().getTARDISShapeItem(item.getDisplayName(), player);
+        return TardisShopPlugin.getTardisApi().getTARDISShapeItem(item.getDisplayName(), player);
     }
 
     public static ItemStack getBlueprintItem(ShopItem item, Player player) {
-        return TardisShopPlugin.getTardisAPI().getTARDISBlueprintItem(item.toString(), player);
+        return TardisShopPlugin.getTardisApi().getTARDISBlueprintItem(item.toString(), player);
     }
 }

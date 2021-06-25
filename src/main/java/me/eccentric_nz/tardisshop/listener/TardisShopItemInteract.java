@@ -114,7 +114,7 @@ public class TardisShopItemInteract implements Listener {
             ShopItem recipe = ShopItem.valueOf(TardisStringUtils.toEnumUppercase(item));
             ItemStack itemStack = switch (recipe.getRecipeType()) {
                 case BLUEPRINT -> ShopItemGetter.getBlueprintItem(recipe, player);
-                case TWA -> ShopItemGetter.getTWAItem(recipe);
+                case TWA -> ShopItemGetter.getTwaItem(recipe);
                 case SEED -> ShopItemGetter.getSeedItem(recipe);
                 default -> ShopItemGetter.getShapeItem(recipe, player);
             };
