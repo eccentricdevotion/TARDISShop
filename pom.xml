@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.eccentric_nz.tardisshop</groupId>
     <artifactId>TARDISShop</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
     <name>TARDISShop</name>
     <description>A TARDIS add-on that allows purchasing items from the main plugin</description>
@@ -106,7 +106,7 @@
                         <!-- Attach Javadocs -->
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.3.0</version>
+                        <version>3.3.1-SNAPSHOT</version>
                         <configuration>
                             <javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
                         </configuration>
@@ -169,29 +169,30 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>21.0.1</version>
             <type>jar</type>
             <scope>compile</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.code.gson</groupId>
-                    <artifactId>gson</artifactId>
-                </exclusion>
-            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.17-R0.1-SNAPSHOT</version>
+            <type>jar</type>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>me.eccentric_nz.tardis</groupId>
             <artifactId>TARDIS</artifactId>
-            <version>4.7.0</version>
+            <version>4.7.2</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>me.eccentric_nz.tardisweepingangels</groupId>
             <artifactId>TARDISWeepingAngels</artifactId>
-            <version>3.3.3</version>
+            <version>3.4.0</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
@@ -202,13 +203,6 @@
             <type>jar</type>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/Vault.jar</systemPath>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>21.0.1</version>
-            <type>jar</type>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
