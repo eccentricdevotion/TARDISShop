@@ -16,8 +16,8 @@
  */
 package me.eccentric_nz.tardisshop.database;
 
-import me.eccentric_nz.tardisshop.TardisShopPlugin;
 import me.eccentric_nz.tardisshop.TardisShopItem;
+import me.eccentric_nz.tardisshop.TardisShopPlugin;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
