@@ -1,5 +1,5 @@
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.eccentric_nz.tardisshop</groupId>
@@ -37,20 +37,19 @@
     </ciManagement>
     <repositories>
         <repository>
+            <!-- Spigot -->
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
         </repository>
         <repository>
-            <id>paper-repo</id>
-            <url>https://papermc.io/repo/repository/maven-public</url>
-        </repository>
-        <repository>
+            <!-- TARDIS -->
             <id>tardis-repo</id>
             <url>http://tardisjenkins.duckdns.org:8080/plugin/repository/everything/</url>
         </repository>
         <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
+            <!-- Vault -->
+            <id>vault-repo</id>
+            <url>http://nexus.hc.to/content/repositories/pub_releases/</url>
         </repository>
     </repositories>
     <profiles>
@@ -107,6 +106,7 @@
         <defaultGoal>clean package install</defaultGoal>
         <plugins>
             <plugin>
+                <!-- Compile -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
@@ -176,6 +176,7 @@
     </build>
     <dependencies>
         <dependency>
+            <!-- JetBrains Java Annotations -->
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>21.0.1</version>
@@ -183,6 +184,7 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <!-- Spigot-API -->
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.17-R0.1-SNAPSHOT</version>
@@ -190,6 +192,7 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <!-- TARDIS -->
             <groupId>me.eccentric_nz.tardis</groupId>
             <artifactId>TARDIS</artifactId>
             <version>4.7.2</version>
@@ -197,6 +200,7 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <!-- TARDISWeepingAngels -->
             <groupId>me.eccentric_nz.tardisweepingangels</groupId>
             <artifactId>TARDISWeepingAngels</artifactId>
             <version>3.4.0</version>
@@ -204,12 +208,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <!-- VaultAPI -->
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>VaultAPI</artifactId>
             <version>1.7</version>
             <type>jar</type>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/Vault.jar</systemPath>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
