@@ -45,14 +45,14 @@ public class ShopItemGetter {
 
     public static ItemStack getSeedItem(ShopItem item) {
         String s = item.toString().replace("_SEED", "");
-        return TardisShopPlugin.getTardisApi().getTARDISSeedItem(s);
+        return TardisShopPlugin.getTardisApi().getTardisSeedItem(s);
     }
 
     public static ItemStack getShapeItem(ShopItem item, Player player) {
-        return TardisShopPlugin.getTardisApi().getTARDISShapeItem(item.getDisplayName(), player);
+        return TardisShopPlugin.getTardisApi().getTardisShapeItem(item.getDisplayName(), player);
     }
 
     public static ItemStack getBlueprintItem(ShopItem item, Player player) {
-        return TardisShopPlugin.getTardisApi().getTARDISBlueprintItem(item.toString(), player);
+        return TardisShopPlugin.getTardisApi().getTardisBlueprintItem(item.toString(), player);
     }
 }
