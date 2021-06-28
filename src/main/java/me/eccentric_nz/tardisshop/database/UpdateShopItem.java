@@ -39,8 +39,8 @@ public class UpdateShopItem {
      * Updates data in the items table. This method builds an SQL query string from the parameters supplied and then
      * executes the update.
      *
-     * @param data  a HashMap<String, Object> of table fields and values update.
-     * @param where a HashMap<String, Object> of table fields and values to select the records to update.
+     * @param data  a {@link HashMap}{@code <}{@link String}{@code , }{@link Object}{@code >} of table fields and values update.
+     * @param where a {@link HashMap}{@code <}{@link String}{@code , }{@link Object}{@code >} of table fields and values to select the records to update.
      */
     public void alterRecord(HashMap<String, Object> data, HashMap<String, Object> where) {
         PreparedStatement preparedStatement = null;
