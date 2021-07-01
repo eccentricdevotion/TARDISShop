@@ -17,8 +17,8 @@
 package me.eccentric_nz.tardisshop;
 
 import com.google.common.collect.ImmutableList;
-import me.eccentric_nz.tardis.commands.TardisCompleter;
-import me.eccentric_nz.tardis.utility.TardisStringUtils;
+import me.eccentric_nz.TARDIS.commands.TARDISCompleter;
+import me.eccentric_nz.TARDIS.utility.TARDISStringUtils;
 import me.eccentric_nz.tardisshop.database.InsertShopItem;
 import me.eccentric_nz.tardisshop.database.ResultSetUpdateShop;
 import me.eccentric_nz.tardisshop.database.UpdateShopItem;
@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class TardisShopCommand extends TardisCompleter implements CommandExecutor, TabCompleter {
+public class TardisShopCommand extends TARDISCompleter implements CommandExecutor, TabCompleter {
 
     private final TardisShopPlugin plugin;
     private final ImmutableList<String> ROOT_SUBS = ImmutableList.of("add", "remove", "update");
@@ -111,7 +111,7 @@ public class TardisShopCommand extends TardisCompleter implements CommandExecuto
                     return true;
                 }
                 double cost = plugin.getItemsConfig().getDouble(name);
-                TardisShopItem item = new InsertShopItem(plugin).addNamedItem(TardisStringUtils.capitalise(args[1]), cost);
+                TardisShopItem item = new InsertShopItem(plugin).addNamedItem(TARDISStringUtils.capitalise(args[1]), cost);
                 plugin.getSettingItem().put(player.getUniqueId(), item);
                 player.sendMessage(plugin.getPluginName() + "Click the " + plugin.getBlockMaterial().toString() + " block to update the database record.");
                 return true;

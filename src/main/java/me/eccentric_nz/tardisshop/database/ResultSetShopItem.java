@@ -16,7 +16,7 @@
  */
 package me.eccentric_nz.tardisshop.database;
 
-import me.eccentric_nz.tardis.utility.TardisStaticLocationGetters;
+import me.eccentric_nz.TARDIS.utility.TARDISStaticLocationGetters;
 import me.eccentric_nz.tardisshop.TardisShopItem;
 import me.eccentric_nz.tardisshop.TardisShopPlugin;
 
@@ -47,7 +47,7 @@ public class ResultSetShopItem {
             resultSet = preparedStatement.executeQuery();
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
-                shopItem = new TardisShopItem(resultSet.getInt("item_id"), resultSet.getString("item"), TardisStaticLocationGetters.getLocationFromBukkitString(resultSet.getString("location")), resultSet.getDouble("cost"));
+                shopItem = new TardisShopItem(resultSet.getInt("item_id"), resultSet.getString("item"), TARDISStaticLocationGetters.getLocationFromBukkitString(resultSet.getString("location")), resultSet.getDouble("cost"));
                 return true;
             }
             return false;

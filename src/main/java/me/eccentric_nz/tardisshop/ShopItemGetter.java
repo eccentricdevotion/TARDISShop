@@ -16,8 +16,8 @@
  */
 package me.eccentric_nz.tardisshop;
 
-import me.eccentric_nz.tardis.TardisPlugin;
-import me.eccentric_nz.tardis.planets.TardisAngelsApi;
+import me.eccentric_nz.TARDIS.TARDIS;
+import me.eccentric_nz.TARDIS.planets.TARDISAngelsAPI;
 import me.eccentric_nz.tardisweepingangels.TardisWeepingAngelsApi;
 import me.eccentric_nz.tardisweepingangels.utils.Monster;
 import org.bukkit.Material;
@@ -29,7 +29,7 @@ public class ShopItemGetter {
     public static ItemStack getTwaItem(ShopItem item) {
         if (TardisShopPlugin.isTwaEnabled()) {
             // get TARDISWeepingAngels API
-            TardisWeepingAngelsApi weepingAngelsApi = TardisAngelsApi.getApi(TardisPlugin.plugin);
+            TardisWeepingAngelsApi weepingAngelsApi = TARDISAngelsAPI.getAPI(TARDIS.plugin);
             if (item.getMaterial() == Material.BONE) {
                 // K9
                 return weepingAngelsApi.getK9();
@@ -45,14 +45,14 @@ public class ShopItemGetter {
 
     public static ItemStack getSeedItem(ShopItem item) {
         String s = item.toString().replace("_SEED", "");
-        return TardisShopPlugin.getTardisApi().getTardisSeedItem(s);
+        return TardisShopPlugin.getTardisApi().getTARDISSeedItem(s);
     }
 
     public static ItemStack getShapeItem(ShopItem item, Player player) {
-        return TardisShopPlugin.getTardisApi().getTardisShapeItem(item.getDisplayName(), player);
+        return TardisShopPlugin.getTardisApi().getTARDISShapeItem(item.getDisplayName(), player);
     }
 
     public static ItemStack getBlueprintItem(ShopItem item, Player player) {
-        return TardisShopPlugin.getTardisApi().getTardisBlueprintItem(item.toString(), player);
+        return TardisShopPlugin.getTardisApi().getTARDISBlueprintItem(item.toString(), player);
     }
 }
