@@ -107,8 +107,8 @@ public class TardisShopPlugin extends JavaPlugin {
             blockMaterial = Material.valueOf(getConfig().getString("block"));
             itemsConfig = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "items.yml"));
             TardisShopCommand command = new TardisShopCommand(this);
-            Objects.requireNonNull(getCommand("tardisshop")).setExecutor(command);
-            Objects.requireNonNull(getCommand("tardisshop")).setTabCompleter(command);
+            getCommand("tardisshop").setExecutor(command);
+            getCommand("tardisshop").setTabCompleter(command);
             try {
                 String path = getDataFolder() + File.separator + "TARDISShop.db";
                 service.setConnection(path);

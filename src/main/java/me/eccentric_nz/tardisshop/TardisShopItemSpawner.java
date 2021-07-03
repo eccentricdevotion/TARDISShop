@@ -43,12 +43,11 @@ public class TardisShopItemSpawner {
             ShopItem shopItem = ShopItem.valueOf(toEnum);
             ItemStack itemStack = new ItemStack(shopItem.getMaterial(), 1);
             ItemMeta itemMeta = itemStack.getItemMeta();
-            assert itemMeta != null;
             itemMeta.setCustomModelData(shopItem.getCustomModelData());
             itemMeta.setDisplayName(what.getItem());
             itemMeta.getPersistentDataContainer().set(plugin.getItemKey(), PersistentDataType.INTEGER, 10001);
             itemStack.setItemMeta(itemMeta);
-            Item item = Objects.requireNonNull(location.getWorld()).dropItem(location, itemStack);
+            Item item = location.getWorld().dropItem(location, itemStack);
             item.setVelocity(new Vector(0, 0, 0));
             item.getPersistentDataContainer().set(plugin.getItemKey(), PersistentDataType.INTEGER, 10001);
             item.setCustomName(what.getItem());

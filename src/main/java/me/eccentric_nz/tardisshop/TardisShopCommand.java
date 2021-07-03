@@ -89,7 +89,7 @@ public class TardisShopCommand extends TARDISCompleter implements CommandExecuto
                             // update database
                             new UpdateShopItem(plugin).updateCost(cost, item.getId());
                             // find armor stand and update display name
-                            for (Entity entity : Objects.requireNonNull(item.getLocation().getWorld()).getNearbyEntities(item.getLocation(), 0.5d, 1.0d, 0.5d)) {
+                            for (Entity entity : item.getLocation().getWorld().getNearbyEntities(item.getLocation(), 0.5d, 1.0d, 0.5d)) {
                                 if (entity instanceof ArmorStand) {
                                     entity.setCustomName(ChatColor.RED + "Cost:" + ChatColor.RESET + String.format(" %.2f", cost));
                                 }
