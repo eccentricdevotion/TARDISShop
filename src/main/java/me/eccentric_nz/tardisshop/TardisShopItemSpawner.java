@@ -27,8 +27,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Vector;
 
-import java.util.Objects;
-
 public class TardisShopItemSpawner {
 
     private final TardisShopPlugin plugin;
