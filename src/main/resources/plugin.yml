@@ -3,8 +3,8 @@ description: A simple shop plugin for TARDIS items
 main: me.eccentric_nz.tardisshop.TARDISShop
 name: TARDISShop
 load: POSTWORLD
-version: 1.0.1
-api-version: 1.17
+version: 1.0.2
+api-version: 1.18
 website: http://tardisjenkins.duckdns.org:8080/job/TARDISShop/
 url: http://tardisjenkins.duckdns.org:8080/job/TARDISShop/
 permissions:
