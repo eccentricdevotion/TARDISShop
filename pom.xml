@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.eccentric_nz.tardisshop</groupId>
     <artifactId>TARDISShop</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <name>TARDISShop</name>
     <repositories>
         <repository>
@@ -30,21 +30,21 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.18.1-R0.1-SNAPSHOT</version>
+            <version>1.19.3-R0.1-SNAPSHOT</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>me.eccentric_nz.TARDIS</groupId>
             <artifactId>TARDIS</artifactId>
-            <version>4.8.1</version>
+            <version>4.13.0</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>me.eccentric_nz.tardisweepingangels</groupId>
             <artifactId>TARDISWeepingAngels</artifactId>
-            <version>3.5.0</version>
+            <version>4.1.1</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
